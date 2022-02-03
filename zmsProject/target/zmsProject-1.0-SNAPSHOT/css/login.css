@@ -1,0 +1,206 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  background: url(../img/3.jpg) 50% 50% no-repeat;
+  background-size: cover;
+  perspective: 120px;
+}
+.rotating-plane {
+  display: none;
+  width: 80px;
+  height: 80px;
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -40px;
+  margin-top: -40px;
+  animation: rotating-plane 2s infinite;
+}
+.rotating-plane.active {
+  display: block;
+}
+.login {
+  width: 350px;
+  height: 450px;
+  background: #fff;
+  box-shadow: 0px 0px 5px #333;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 90px 40px;
+}
+.login.effect {
+  animation: login-small 0.8s linear;
+  animation-fill-mode: forwards;
+}
+.login h3 {
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+.login .log-form li {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.login .log-form li input {
+  height: 30px;
+  border: 0px;
+  border-bottom: 1px solid #ccc;
+  flex-grow: 1;
+  padding-left: 10px;
+  outline: none;
+}
+.login .log-form li input:focus {
+  border: 1px solid dodgerblue;
+}
+.login .log-form li input:focus ~ label {
+  opacity: 1;
+  top: -5px;
+}
+.login .log-form li label {
+  position: absolute;
+  left: 50px;
+  top: 21px;
+  color: dodgerblue;
+  font-size: 14px;
+  opacity: 0;
+  background: #fff;
+  padding: 0 5px;
+  transition: 0.5s;
+}
+.login .log-form li i {
+  width: 20px;
+  height: 30px;
+  display: inline-block;
+  background: #ffffff;
+  margin-right: 18px;
+}
+.login .log-form li i.name {
+  background: url(../img/name.png) no-repeat;
+  background-size: 20px 20px;
+}
+.login .log-form li i.password {
+  background: url(../img/password.png) no-repeat;
+  background-size: 20px 20px;
+}
+.login .log-form li i.permission {
+  background: url(../img/permission.png) no-repeat;
+  background-size: 20px 20px;
+}
+.login .login-button {
+  cursor: pointer;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  background: dodgerblue;
+  color: #fff;
+  border-radius: 5px;
+}
+@keyframes login-small {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+}
+@keyframes rotating-plane {
+  0% {
+    transform: rotateX(0deg) rotateY(0);
+  }
+  50% {
+    transform: rotateX(-180deg) rotateY(0);
+  }
+  100% {
+    transform: rotateX(-180deg) rotateY(180deg);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  left:20px;
+}
+
+#loginDiv {
+  width: 37%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  background-color: rgba(75, 81, 95, 0.3);
+  box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
+  border-radius: 5px;
+}
+
+#name_trip {
+  margin-left: 50px;
+  color: red;
+}
+
+p {
+  margin-top: 30px;
+  margin-left: 20px;
+  color: azure;
+}
+
+input {
+  margin-left: 15px;
+  border-radius: 5px;
+  border-style: hidden;
+  height: 30px;
+  width: 140px;
+  background-color: rgb(255, 255, 255);
+  outline: none;
+  color: #f0edf3;
+  padding-left: 10px;
+}
+#username{
+  width: 200px;
+}
+#password{
+  width: 202px;
+}
+.button {
+  border-color: cornsilk;
+  background-color: rgba(100, 149, 237, .7);
+  color: aliceblue;
+  border-style: hidden;
+  border-radius: 5px;
+  width: 100px;
+  height: 31px;
+  font-size: 16px;
+}
+
+#subDiv {
+  text-align: center;
+  margin-top: 30px;
+}
+#loginMsg{
+  text-align: center;color: aliceblue;
+}

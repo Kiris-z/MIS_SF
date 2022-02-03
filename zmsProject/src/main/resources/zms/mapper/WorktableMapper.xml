@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zms.mapper.WorktableMapper">
+
+    <resultMap id="worktableResultMap" type="worktable">
+        <result property="worktableId" column="id"/>
+        <result property="title" column="title"/>
+        <result property="teacherId" column="teacher_id"/>
+        <result property="courseId" column="course_id"/>
+        <result property="klassId" column="klass_id"/>
+        <result property="createDate" column="createdate"/>
+        <result property="deadLine" column="deadline"/>
+    </resultMap>
+    <delete id="deleteByIds">
+        delete from worktable where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="selectByPageAndCondition" resultMap="worktableResultMap">
+        select *
+        from worktable
+        <where>
+            <if test="worktable.title != null and worktable.title != ''">
+                and title like #{worktable.title}
+            </if>
+            <if test="worktable.teacherId != null">
+                and teacherId = #{worktable.teacherId}
+            </if>
+            <if test="worktable.courseId!=null">
+                and courseId = #{worktable.courseId}
+            </if>
+            <if test="worktable.klassId!=null">
+                and klassId = #{worktable.klassId}
+            </if>
+        </where>
+
+        limit #{begin},#{size}
+
+    </select>
+    <select id="selectTotalCountByCondition" resultType="java.lang.Integer">
+        select count(*)
+        from worktable
+        <where>
+            <if test="worktable.title != null and worktable.title != ''">
+                and title like #{worktable.title}
+            </if>
+            <if test="worktable.teacherId != null">
+                and teacherId = #{worktable.teacherId}
+            </if>
+            <if test="worktable.courseId!=null">
+                and courseId = #{worktable.courseId}
+            </if>
+            <if test="worktable.klassId!=null">
+                and klassId = #{worktable.klassId}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zms.mapper.KlassMapper">
+
+    <resultMap id="klassResultMap" type="klass">
+        <result property="klassId" column="id" />
+        <result property="klassName" column="name" />
+    </resultMap>
+    <delete id="deleteByIds">
+        delete from klass where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="selectByPageAndCondition" resultMap="klassResultMap">
+        select *
+        from klass
+        <where>
+            <if test="klass.klassName != null and klass.klassName != ''">
+                and name like #{klass.klassName}
+            </if>
+        </where>
+
+        limit #{begin},#{size}
+
+    </select>
+    <select id="selectTotalCountByCondition" resultType="java.lang.Integer">
+        select count(*)
+        from klass
+        <where>
+            <if test="klass.klassName != null and klass.klassName != ''">
+                and name like #{klass.klassName}
+            </if>
+        </where>
+    </select>
+</mapper>

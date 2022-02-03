@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zms.mapper.CourseMapper">
+
+    <resultMap id="courseResultMap" type="course">
+        <result property="courseId" column="id" />
+        <result property="courseName" column="name" />
+    </resultMap>
+    <delete id="deleteByIds">
+        delete from course where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="selectByPageAndCondition" resultMap="courseResultMap">
+        select *
+        from course
+        <where>
+            <if test="course.courseName != null and course.courseName != ''">
+                and name like #{course.courseName}
+            </if>
+        </where>
+
+        limit #{begin},#{size}
+
+    </select>
+
+    <select id="selectTotalCountByCondition" resultType="java.lang.Integer">
+        select count(*)
+        from course
+        <where>
+            <if test="course.courseName != null and course.courseName != ''">
+                and name like #{course.courseName}
+            </if>
+        </where>
+    </select>
+</mapper>

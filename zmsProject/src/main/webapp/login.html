@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ZMSproject</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<div class="main">
+    <div class="container a-container" id="a-container">
+        <form class="form" id="a-form" method="post" action="/zmsProject/loginStudentServlet"
+              style="margin-left: 100px;margin-top: 250px">
+            <h2 class="form_title title" style="margin-left: 100px">学生登录</h2>
+            <input class="form__input" type="text" placeholder="请输入用户名" id="username" name="username">
+            <br>
+            <span id="username_err" style="color:red;display:none"> 用户名不合法</span>
+            <br>
+            <input class="form__input" type="password" placeholder="请输入密码" id="password" name="password">
+            <div id="subDiv1">
+                <input class="form__button button" style="margin-left: 80px" type="submit" value="登录">
+            </div>
+        </form>
+    </div>
+    <div class="container b-container" id="b-container">
+        <form class="form" id="b-form" method="post" action="/zmsProject/loginTeacherServlet"
+              style="margin-left: 100px;margin-top: 250px">
+            <h2 class="form_title title" style="margin-left: 100px">教师登录</h2>
+            <input class="form__input" id="usernameTeacher" name="usernameTeacher" type="text" placeholder="请输入用户名">
+            <br>
+            <span id="usernameTeacher_err" style="color:red;display: none">用户名不合法</span>
+            <br>
+            <input class="form__input" type="password" id="passwordTeacher" name="passwordTeacher"
+                   placeholder="请输入密码"><br>
+            <input type="checkbox" id="permission" name="permission" style="vertical-align:middle; margin-top:0;"/>
+            <label>管理员登陆</label>
+            <div id="subDiv2">
+                <button class="form__button button" style="margin-left: 80px" type="submit">登录</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="switch" id="switch-cnt">
+        <div class="switch__circle"></div>
+        <div class="switch__circle switch__circle--t"></div>
+        <div class="switch__container" id="switch-c1">
+            <h2 class="switch__title title">Hello Student !</h2>
+            <p class="switch__description description">Enter your username and password</p>
+            <button class="switch__button button switch-btn">切换</button>
+        </div>
+        <div class="switch__container is-hidden" id="switch-c2">
+            <h2 class="switch__title title">Hello Teacher !</h2>
+            <p class="switch__description description">Enter your username and password</p>
+            <button class="switch__button button switch-btn">切换</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+<script>
+    var usernameInput = document.getElementById("username");
+    usernameInput.onblur = function () {
+        var username = usernameInput.value.trim();
+
+        if (username.length == 5) {
+            document.getElementById("username_err").style.display = 'none';
+        } else {
+            document.getElementById("username_err").style.display = "";
+        }
+    }
+</script>
+
+<script>
+    var usernameTeacherInput = document.getElementById("usernameTeacher");
+    usernameTeacherInput.onblur = function () {
+        var usernameTeacher = usernameTeacherInput.value.trim();
+        if (usernameTeacher.length == 6) {
+            document.getElementById("usernameTeacher_err").style.display = 'none';
+        } else {
+            document.getElementById("usernameTeacher_err").style.display = "";
+        }
+    }
+</script>
+</body>
+</html>

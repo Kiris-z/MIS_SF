@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zms.mapper.StuWorkMapper">
+
+    <resultMap id="stuWorkResultMap" type="stuWork">
+        <result property="stuId" column="stu_id"/>
+        <result property="workId" column="work_id"/>
+        <result property="stuAnswer" column="stu_answer"/>
+        <result property="stuScore" column="score"/>
+        <result property="notes" column="notes"/>
+        <result property="state" column="state"/>
+    </resultMap>
+    <delete id="deleteByIds">
+        delete from stu_work where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="selectByPageAndCondition" resultMap="stuWorkResultMap">
+        select *
+        from stu_work
+        <where>
+            <if test="stuWork.workId != null">
+                and workId = #{stuWork.workId}
+            </if>
+            <if test="stuWork.state!=null">
+                and state = #{stuWork.state}
+            </if>
+        </where>
+
+        limit #{begin},#{size}
+
+    </select>
+    <select id="selectTotalCountByCondition" resultType="java.lang.Integer">
+        select count(*)
+        from stu_work
+        <where>
+            <if test="stuWork.workId != null">
+                and workId = #{stuWork.workId}
+            </if>
+            <if test="stuWork.state!=null">
+                and state = #{stuWork.state}
+            </if>
+        </where>
+    </select>
+</mapper>

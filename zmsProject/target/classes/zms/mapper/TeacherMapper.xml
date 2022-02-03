@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zms.mapper.TeacherMapper">
+
+    <resultMap id="teacherResultMap" type="teacher">
+        <result property="teacherId" column="id" />
+        <result property="teacherName" column="name" />
+        <result property="department" column="department" />
+        <result property="teacherPassword" column="password" />
+    </resultMap>
+    <delete id="deleteByIds">
+        delete from teacher where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="selectByPageAndCondition" resultMap="teacherResultMap">
+        select *
+        from teacher
+        <where>
+            <if test="teacher.teacherName != null and teacher.teacherName != ''">
+                and name like #{teacher.teacherName}
+            </if>
+            <if test="teacher.teacherId != null">
+                and id = #{teacher.teacherId}
+            </if>
+            <if test="teacher.department != null and teacher.department !=''">
+                and department like #{teacher.department}
+            </if>
+        </where>
+
+        limit #{begin},#{size}
+
+    </select>
+    <select id="selectTotalCountByCondition" resultType="java.lang.Integer">
+        select count(*)
+        from teacher
+        <where>
+            <if test="teacher.teacherName != null and teacher.teacherName != ''">
+                and name like #{teacher.teacherName}
+            </if>
+            <if test="teacher.teacherId != null">
+                and id = #{teacher.teacherId}
+            </if>
+            <if test="teacher.department != null and teacher.department !=''">
+                and department like #{teacher.department}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zms.mapper.ExerciseMapper">
+
+    <resultMap id="exerciseResultMap" type="exercise">
+        <result property="exerciseId" column="id" />
+        <result property="kind" column="kind" />
+        <result property="exerciseScore" column="score" />
+        <result property="content" column="content" />
+        <result property="answer" column="answer" />
+        <result property="teacherId" column="teacher_id" />
+        <result property="courseId" column="course_id" />
+    </resultMap>
+    <delete id="deleteByIds">
+        delete from exercise where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="selectByPageAndCondition" resultMap="exerciseResultMap">
+        select *
+        from exercise
+        <where>
+            <if test="exercise.exerciseId != null">
+                and exerciseId = #{exercise.exerciseId}
+            </if>
+            <if test="exercise.kind != null">
+                and kind = #{exercise.kind}
+            </if>
+            <if test="exercise.teacherId != null">
+                and teacherId = #{exercise.teacherId}
+            </if>
+            <if test="exercise.courseId != null">
+                and courseId = #{exercise.courseId}
+            </if>
+        </where>
+
+        limit #{begin},#{size}
+
+    </select>
+    <select id="selectTotalCountByCondition" resultType="java.lang.Integer">
+        select count(*)
+        from exercise
+        <where>
+            <if test="exercise.exerciseId != null">
+                and exerciseId = #{exercise.exerciseId}
+            </if>
+            <if test="exercise.kind != null">
+                and kind = #{exercise.kind}
+            </if>
+            <if test="exercise.teacherId != null">
+                and teacherId = #{exercise.teacherId}
+            </if>
+            <if test="exercise.courseId != null">
+                and courseId = #{exercise.courseId}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zms.mapper.StudentMapper">
+
+    <resultMap id="studentResultMap" type="student">
+        <result property="klassId" column="klass_id" />
+        <result property="studentId" column="id" />
+        <result property="studentName" column="name" />
+        <result property="studentPassword" column="password" />
+    </resultMap>
+    <delete id="deleteByIds">
+        delete from student where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="selectByPageAndCondition" resultMap="studentResultMap">
+        select *
+        from student
+        <where>
+            <if test="student.name != null and student.name != ''">
+                and name like #{student.name}
+            </if>
+            <if test="student.id != null">
+                and id = #{student.id}
+            </if>
+            <if test="student.klass_id != null">
+                and klass_id = #{student.klass_id}
+            </if>
+        </where>
+
+        limit #{begin},#{size}
+
+    </select>
+    <select id="selectTotalCountByCondition" resultType="java.lang.Integer">
+        select count(*)
+        from student
+        <where>
+            <if test="student.name != null and student.name != ''">
+                and name like #{student.name}
+            </if>
+            <if test="student.id != null">
+                and id = #{student.id}
+            </if>
+            <if test="student.klass_id != null">
+                and klass_id = #{student.klass_id}
+            </if>
+        </where>
+    </select>
+</mapper>
